@@ -658,13 +658,6 @@ again:			remove_next = 1 + (end > next->vm_end);
 	if (mapping)
 		mutex_unlock(&mapping->i_mmap_mutex);
 
-	if (root) {
-		mmap_uprobe(vma);
-
-		if (adjust_next)
-			mmap_uprobe(next);
-	}
-
 	if (remove_next) {
 		if (file) {
 			uprobe_munmap(next, next->vm_start, next->vm_end);
@@ -687,8 +680,6 @@ again:			remove_next = 1 + (end > next->vm_end);
 			goto again;
 		}
 	}
-	if (insert && file)
-		mmap_uprobe(insert);
 
 	validate_mm(mm);
 
@@ -1442,11 +1433,6 @@ out:
 			mm->locked_vm += (len >> PAGE_SHIFT);
 	} else if ((flags & MAP_POPULATE) && !(flags & MAP_NONBLOCK))
 		make_pages_present(addr, addr + len);
-
-	if (file && mmap_uprobe(vma))
-		/* matching probes but cannot insert */
-		goto unmap_and_free_vma;
-
 	return addr;
 
 unmap_and_free_vma:
@@ -2457,12 +2443,8 @@ int insert_vm_struct(struct mm_struct * mm, struct vm_area_struct * vma)
 	if (__vma && __vma->vm_start < vma->vm_end)
 		return -ENOMEM;
 	if ((vma->vm_flags & VM_ACCOUNT) &&
-	     security_vm_enough_memory_mm(mm, vma_pages(vma)))
-		return -ENOMEM;
-
-	if (vma->vm_file && mmap_uprobe(vma))
-		return -EINVAL;
-
+	    security_vm_enough_memory_mm(mm, vma_pages(vma)))
+			return -ENOMEM;
 	vma_link(mm, vma, prev, rb_link, rb_parent);
 	return 0;
 }
@@ -2532,10 +2514,6 @@ struct vm_area_struct *copy_vma(struct vm_area_struct **vmap,
 			new_vma->vm_pgoff = pgoff;
 			if (new_vma->vm_file) {
 				get_file(new_vma->vm_file);
-
-				if (mmap_uprobe(new_vma))
-					goto out_free_mempol;
-
 				if (vma->vm_flags & VM_EXECUTABLE)
 					added_exe_file_vma(mm);
 			}
