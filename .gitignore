@@ -1,0 +1,4 @@
+arch/arm/crypto/aesbs-core.S
+arch/arm/crypto/sha256-core.S
+firmware/epen/W9007A_LT03.bin
+firmware/tsp_atmel/mXT1664S_n.fw
