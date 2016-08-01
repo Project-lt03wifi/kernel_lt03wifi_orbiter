@@ -556,7 +556,7 @@ static int set_cpu_core_from_usb_irq(int enable)
 	return err;
 }
 
-static int __cpuinit s5p_ehci_cpu_notify(struct notifier_block *self,
+static int s5p_ehci_cpu_notify(struct notifier_block *self,
 				unsigned long action, void *hcpu)
 {
 	int cpu = (unsigned long)hcpu;
