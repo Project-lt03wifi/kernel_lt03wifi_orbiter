@@ -175,7 +175,7 @@ static void scfs_evict_inode(struct inode *inode)
 #if LINUX_VERSION_CODE >= KERNEL_VERSION(3,10,0)
 	clear_inode(inode);
 #else
-	end_writeback(inode);
+	clear_inode(inode);
 #endif
 	/* to conserve memory, evicted inode will throw out the cluster info */
 	if (sii->cinfo_array) {
