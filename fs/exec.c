@@ -1252,8 +1252,8 @@ static void bprm_fill_uid(struct linux_binprm *bprm)
 {
 	struct inode *inode;
 	unsigned int mode;
-	uid_t uid;
-	gid_t gid;
+	kuid_t uid;
+	kgid_t gid;
 
 	/* clear any previous set[ug]id data from a previous binary */
 	bprm->cred->euid = current_euid();
