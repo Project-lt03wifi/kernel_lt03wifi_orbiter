@@ -1,7 +1,7 @@
 VERSION = 3
 PATCHLEVEL = 4
 SUBLEVEL = 112
-EXTRAVERSION = -valexKernel MM v0.07
+EXTRAVERSION = -valexKernel MM v0.08
 NAME = Saber-toothed Squirrel
 
 # *DOCUMENTATION*
