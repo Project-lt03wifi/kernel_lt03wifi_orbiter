@@ -17,7 +17,6 @@
 #include <net/sock.h>
 #include <net/fib_rules.h>
 
-#define INVALID_UID ((uid_t) -1)
 #define uid_valid(uid) ((uid) != -1)
 #define uid_lte(a, b) ((a) <= (b))
 #define uid_eq(a, b) ((a) == (b))
@@ -185,12 +184,12 @@ void fib_rules_unregister(struct fib_rules_ops *ops)
 }
 EXPORT_SYMBOL_GPL(fib_rules_unregister);
 
-static inline uid_t fib_nl_uid(struct nlattr *nla)
+static inline kuid_t fib_nl_uid(struct nlattr *nla)
 {
 	return nla_get_u32(nla);
 }
 
-static int nla_put_uid(struct sk_buff *skb, int idx, uid_t uid)
+static int nla_put_uid(struct sk_buff *skb, int idx, kuid_t uid)
 {
 	return nla_put_u32(skb, idx, uid);
 }
