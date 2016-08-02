@@ -45,18 +45,6 @@ int read_current_timer(unsigned long *timer_val)
 	*timer_val = delay_timer->read_current_timer();
 	return 0;
 }
-
-static const struct delay_timer *delay_timer;
-static bool delay_calibrated;
-
-int read_current_timer(unsigned long *timer_val)
-{
-	if (!delay_timer)
-		return -ENXIO;
-
-	*timer_val = delay_timer->read_current_timer();
-	return 0;
-}
 EXPORT_SYMBOL_GPL(read_current_timer);
 
 static void __timer_delay(unsigned long cycles)
