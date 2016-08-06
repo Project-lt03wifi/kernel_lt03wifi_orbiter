@@ -20,6 +20,7 @@
 #include <linux/tick.h>
 #include <linux/ktime.h>
 #include <linux/sched.h>
+#include <linux/sched/rt.h>
 #include <linux/cpuidle.h>
 
 /*

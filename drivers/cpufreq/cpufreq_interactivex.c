@@ -22,6 +22,7 @@
 #include <linux/module.h>
 #include <linux/mutex.h>
 #include <linux/sched.h>
+#include <linux/sched/rt.h>
 #include <linux/tick.h>
 #include <linux/timer.h>
 #include <linux/workqueue.h>

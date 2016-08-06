@@ -33,6 +33,7 @@
 #include <linux/tick.h>
 #include <linux/ktime.h>
 #include <linux/sched.h>
+#include <linux/sched/rt.h>
 
 #define DEF_FREQUENCY_UP_THRESHOLD		(70)
 #define DEF_FREQUENCY_DOWN_THRESHOLD		(30)
